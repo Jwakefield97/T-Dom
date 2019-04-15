@@ -26,7 +26,21 @@ const $ = (selector) => {
 	};
 	//generate string from template and model object passed in.
 	node.template = (templateName,model) => {
-		renderedTemplate = $.templates[templateName].innerHTML;
+		let temp = $.templates[templateName].innerHTML,
+			indexStart = temp.indexOf("{{"),
+			indexEnd = temp.indexOf("}}");
+			
+		while(indexStart > 0 && indexEnd > 0) {
+			let start = temp.slice(0,indexStart),
+				content = temp.slice(indexStart+2,indexEnd).trim(),
+				end = temp.slice(indexEnd+2,temp.length);
+			content = model[content];
+			temp = start+content+end;
+			indexStart = temp.indexOf("{{");
+			indexEnd = temp.indexOf("}}");
+		}
+
+		renderedTemplate = temp;
 		return node;
 	};
 	//prepend a template/node to a innerhtml of node.
@@ -36,7 +50,6 @@ const $ = (selector) => {
 	};
 	//append a template/node to innerhtml of a node.
 	node.append = () => {
-		console.log(renderedTemplate,$.templates);
 		node.innerHTML += renderedTemplate;
 		return node;
 	};

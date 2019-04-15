@@ -9,6 +9,8 @@ import "./main.css";
 		$("t-template").every((template) => {
 			$.templates[template.getAttribute("name")] = template;
 		});
-		$("body").template("hello",{}).append();
+		for(let i =0; i < 100; i++){
+			$("body").template("hello",{ name: "jake"+i }).append();
+		}
 	});
 })();
