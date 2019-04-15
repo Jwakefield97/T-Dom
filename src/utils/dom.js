@@ -64,4 +64,14 @@ const $ = (selector) => {
 
 $.templates = {}; //object to store the registered templates
 
+//register all templates from the webpage
+(() => {
+	$(document).ready((e) => {
+		//gather all templates and store them in $
+		$("t-template").every((template) => {
+			$.templates[template.getAttribute("name")] = template;
+		});
+	});
+})();
+
 module.exports = { $ };
