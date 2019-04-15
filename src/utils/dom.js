@@ -58,6 +58,16 @@ const $ = (selector) => {
 		node.innerHTML = "";
 		return node;
 	};
+	//remove this node
+	node.remove = () => {
+		node.parentNode.removeChild(node);
+	};	
+	//remove all nodes from all
+	node.removeAll = () => {
+		Array.from(document.querySelectorAll(selector)).forEach(item => {
+			item ? item.parentNode.removeChild(item) : item;
+		});
+	};
 
 	return node; 
 };
