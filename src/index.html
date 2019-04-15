@@ -8,9 +8,17 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    </head>
     <body>
         <t-template name="hello">    
-            <div> hello {{ name }} </div>
-            <div> goodbye {{ name }} </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title"> {{ title }} </div>
+                            <div class="card-text"> {{ text }} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </t-template>
-        <div id="something"></div>
+        <div class="container" id="mainContent"></div>
     </body>
 </html>
