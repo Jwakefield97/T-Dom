@@ -25,21 +25,29 @@ const $ = (selector) => {
 		return node;
 	};
 	//generate string from template and model object passed in.
-	node.template = (templateName,model) => {
-		let temp = $.templates[templateName],
-			tempStr = temp.value,
-			params = temp.params,
-			offset = 0;
+	node.template = (templateName,models) => {
 
-		for(let paramIndex in params){
-			paramIndex = +paramIndex;
-			let val = params[paramIndex],
-				content = model[val];
-			tempStr = tempStr.slice(0,paramIndex+offset) + content + tempStr.slice(paramIndex+offset,tempStr.length);
-	
-			offset += content.length;
+		if(!Array.isArray(models)) {
+			models = [models];
 		}
-		renderedTemplate = tempStr;
+
+		models.forEach((model) => {
+			let temp = $.templates[templateName],
+				tempStr = temp.value,
+				params = temp.params,
+				offset = 0;
+			for(let paramIndex in params){
+				paramIndex = +paramIndex;
+				let val = params[paramIndex],
+					content = model[val];
+				tempStr = tempStr.slice(0,paramIndex+offset) + content + tempStr.slice(paramIndex+offset,tempStr.length);
+		
+				offset += content.length;
+			}
+			offset = 0
+			renderedTemplate += tempStr;
+		});
+
 		return node;
 	};
 	//prepend a template/node to a innerhtml of node.
