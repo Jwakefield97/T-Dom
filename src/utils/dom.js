@@ -40,9 +40,13 @@ const $ = (selector) => {
 				paramIndex = +paramIndex;
 				let val = params[paramIndex],
 					content = model[val];
+
+				if(typeof(content) === "function"){
+					content += val + "(this);"
+				}
 				tempStr = tempStr.slice(0,paramIndex+offset) + content + tempStr.slice(paramIndex+offset,tempStr.length);
 		
-				offset += content.length;
+				offset += content.toString().length;
 			}
 			offset = 0
 			renderedTemplate += tempStr;

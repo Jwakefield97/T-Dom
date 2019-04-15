@@ -10,7 +10,10 @@ let numElements = 0;
 		for(let i = 0; i < 10; i++){
 			models.push({ 
 				title: "title"+i,
-				text: "this is some text for card: "+i 
+				text: "this is some text for card: "+i,
+				handler: (e) => {
+					console.log(e.target);
+				}
 			});
 		}
 		$("#mainContent").template("hello",models).append();
@@ -21,7 +24,10 @@ let numElements = 0;
 				for(let i = numElements; i < numElements+10; i++){
 					models.push({ 
 						title: "title"+i,
-						text: "this is some text for card: "+i 
+						text: "this is some text for card: "+i ,
+				handler: (e) => {
+					console.log(e);
+				}
 					});
 				}
 				$("#mainContent").template("hello",models).append();
