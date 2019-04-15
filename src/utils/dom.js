@@ -28,13 +28,17 @@ const $ = (selector) => {
 	node.template = (templateName,model) => {
 		let temp = $.templates[templateName],
 			tempStr = temp.value,
-			params = temp.params;
-		
+			params = temp.params,
+			offset = 0;
+
 		for(let paramIndex in params){
-			let val = params[paramIndex];
-			tempStr = tempStr.slice(0,paramIndex) + model[val] + tempStr.slice(paramIndex,tempStr.length);
+			paramIndex = +paramIndex;
+			let val = params[paramIndex],
+				content = model[val];
+			tempStr = tempStr.slice(0,paramIndex+offset) + content + tempStr.slice(paramIndex+offset,tempStr.length);
+	
+			offset += content.length;
 		}
-		
 		renderedTemplate = tempStr;
 		return node;
 	};
@@ -82,20 +86,17 @@ $.templates = {}; //object to store the registered templates
 					name: template.getAttribute("name"),
 					value: "",
 					params: {} //index of params to the value stored at that location
-				},
-				offset = 0;
+				};
 			
 			while(indexStart > 0 && indexEnd > 0) {
 				let start = temp.slice(0,indexStart),
 					content = temp.slice(indexStart+2,indexEnd).trim(),
 					end = temp.slice(indexEnd+2,temp.length);
-				templateObj.params[indexStart+offset] = content;
-				
+				templateObj.params[indexStart] = content;
 				content = "";
 				temp = start+content+end;
 				indexStart = temp.indexOf("{{");
 				indexEnd = temp.indexOf("}}");
-				offset += 6;
 			}
 			templateObj.value = temp;
 
