@@ -26,21 +26,16 @@ const $ = (selector) => {
 	};
 	//generate string from template and model object passed in.
 	node.template = (templateName,model) => {
-		let temp = $.templates[templateName].innerHTML,
-			indexStart = temp.indexOf("{{"),
-			indexEnd = temp.indexOf("}}");
-			
-		while(indexStart > 0 && indexEnd > 0) {
-			let start = temp.slice(0,indexStart),
-				content = temp.slice(indexStart+2,indexEnd).trim(),
-				end = temp.slice(indexEnd+2,temp.length);
-			content = model[content];
-			temp = start+content+end;
-			indexStart = temp.indexOf("{{");
-			indexEnd = temp.indexOf("}}");
+		let temp = $.templates[templateName],
+			tempStr = temp.value,
+			params = temp.params;
+		
+		for(let paramIndex in params){
+			let val = params[paramIndex];
+			tempStr = tempStr.slice(0,paramIndex) + model[val] + tempStr.slice(paramIndex,tempStr.length);
 		}
-
-		renderedTemplate = temp;
+		
+		renderedTemplate = tempStr;
 		return node;
 	};
 	//prepend a template/node to a innerhtml of node.
@@ -79,7 +74,33 @@ $.templates = {}; //object to store the registered templates
 	$(document).ready((e) => {
 		//gather all templates and store them in $
 		$("t-template").every((template) => {
-			$.templates[template.getAttribute("name")] = template;
+			
+			let temp = template.innerHTML,
+				indexStart = temp.indexOf("{{"),
+				indexEnd = temp.indexOf("}}"),
+				templateObj = {
+					name: template.getAttribute("name"),
+					value: "",
+					params: {} //index of params to the value stored at that location
+				},
+				offset = 0;
+			
+			while(indexStart > 0 && indexEnd > 0) {
+				let start = temp.slice(0,indexStart),
+					content = temp.slice(indexStart+2,indexEnd).trim(),
+					end = temp.slice(indexEnd+2,temp.length);
+				templateObj.params[indexStart+offset] = content;
+				
+				content = "";
+				temp = start+content+end;
+				indexStart = temp.indexOf("{{");
+				indexEnd = temp.indexOf("}}");
+				offset += 6;
+			}
+			templateObj.value = temp;
+
+			$.templates[templateObj.name] = templateObj;
+			template.parentNode.removeChild(template); //remove the template nodes from the dom after they are processed.
 		});
 	});
 })();

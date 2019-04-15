@@ -7,6 +7,5 @@ import "./main.css";
 		for(let i =0; i < 100; i++){
 			$("body").template("hello",{ name: "jake"+i }).append();
 		}
-		console.log($);
 	});
 })();
