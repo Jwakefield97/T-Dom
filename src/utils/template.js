@@ -5,4 +5,4 @@ class Template extends HTMLElement {
 	}
 }
 
-customElements.define("t-template", Template);
+window.customElements.define("t-template", Template);

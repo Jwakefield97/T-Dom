@@ -1,9 +1,14 @@
 import { $ } from "./utils/dom.js";
- 
-console.log($("body").all("div"));
+import "./utils/template.js";
+import "./main.css";
 
-$(document).ready((e) => {
-	//gather all template nodes in and store them in $.
-	
-	console.log("content loaded");
-});
+
+(() => {
+	$(document).ready((e) => {
+		//gather all template nodes in and store them in $.
+		$("body").all("t-template").forEach((template) => {
+			console.log(template);
+		});
+		console.log("content loaded");
+	});
+})();

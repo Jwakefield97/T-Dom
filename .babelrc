@@ -12,6 +12,7 @@
         "useBuiltins": true
     }],"es2015"],
     "plugins": [
-        "transform-class-properties"
+        "transform-class-properties",
+        "transform-custom-element-classes",
     ]
 }
