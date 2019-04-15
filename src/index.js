@@ -5,10 +5,10 @@ import "./main.css";
 
 (() => {
 	$(document).ready((e) => {
-		//gather all template nodes in and store them in $.
-		$("body").all("t-template").forEach((template) => {
-			console.log(template);
+		//gather all templates and store them in $
+		$("t-template").every((template) => {
+			$.templates[template.getAttribute("name")] = template;
 		});
-		console.log("content loaded");
+		$("body").template("hello",{}).append();
 	});
 })();
