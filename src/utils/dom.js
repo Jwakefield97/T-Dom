@@ -26,7 +26,7 @@ const $ = (selector) => {
 	};
 	//generate string from template and model object passed in.
 	node.template = (templateName,models) => {
-
+		let currentRenderTemplate = "";
 		if(!Array.isArray(models)) {
 			models = [models];
 		}
@@ -36,12 +36,15 @@ const $ = (selector) => {
 				tempStr = temp.value,
 				params = temp.params,
 				offset = 0;
-			for(let paramIndex in params){
+			for(let paramIndex in params){  //for parameter in the template
 				paramIndex = +paramIndex;
 				let val = params[paramIndex],
 					content = model[val];
-
-				if(typeof(content) === "function"){
+				if(typeof(content) === "object" && content.type === "template") { //passing in a template as model attribute
+					node.template(val,content.model);
+					content = renderedTemplate;
+				}
+				if(typeof(content) === "function"){ //register events on node
 					content += val + "(this);"
 				}
 				tempStr = tempStr.slice(0,paramIndex+offset) + content + tempStr.slice(paramIndex+offset,tempStr.length);
@@ -49,9 +52,9 @@ const $ = (selector) => {
 				offset += content.toString().length;
 			}
 			offset = 0
-			renderedTemplate += tempStr;
+			currentRenderTemplate += tempStr;
 		});
-
+		renderedTemplate = currentRenderTemplate;
 		return node;
 	};
 	//prepend a template/node to a innerhtml of node.

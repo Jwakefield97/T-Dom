@@ -13,7 +13,14 @@ let numElements = 0;
 				text: "this is some text for card: "+i,
 				handler: (e) => {
 					console.log(e);
+				},
+				cardExtra: {
+					type: "template",
+					model: {
+						someValue: i
+					}
 				}
+				
 			});
 		}
 
@@ -29,9 +36,15 @@ let numElements = 0;
 					models.push({ 
 						title: "title"+i,
 						text: "this is some text for card: "+i ,
-				handler: (e) => {
-					console.log(e);
-				}
+						handler: (e) => {
+							console.log(e);
+						},
+						cardExtra: {
+							type: "template",
+							model: {
+								someValue: i
+							}
+						}
 					});
 				}
 				$("#mainContent").template("cardTemplate",models).append();

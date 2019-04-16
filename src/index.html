@@ -8,6 +8,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    </head>
     <body>
 
+        <t-template name="cardExtra">
+            <p>Some extra content with a value</p>
+            <p>The value is: {{ someValue }} </p>
+        </t-template>
+
         <t-template name="cardTemplate">    
             <div class="row mt-2">
                 <div class="col-12">
@@ -15,6 +20,7 @@
                         <div class="card-body">
                             <div class="card-title"> {{ title }} </div>
                             <div class="card-text" onclick="{{ handler }}" > {{ text }} </div>
+                            <div class="card-text"> {{ cardExtra }} </div>
                         </div>
                     </div>
                 </div>
