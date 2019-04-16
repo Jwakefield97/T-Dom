@@ -12,12 +12,16 @@ let numElements = 0;
 				title: "title"+i,
 				text: "this is some text for card: "+i,
 				handler: (e) => {
-					console.log(e.target);
+					console.log(e);
 				}
 			});
 		}
-		$("#mainContent").template("hello",models).append();
+
+		
+		$("#mainContent").template("cardTemplate",models).append();
 		numElements += 10;
+
+
 		window.addEventListener("scroll", (e) => {
 			if(window.scrollY >= document.body.scrollHeight - 1000) {
 				let models = [];
@@ -30,7 +34,7 @@ let numElements = 0;
 				}
 					});
 				}
-				$("#mainContent").template("hello",models).append();
+				$("#mainContent").template("cardTemplate",models).append();
 				numElements += 10;
 			}
 			
