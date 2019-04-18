@@ -45,7 +45,7 @@ const $ = (selector) => {
 					content = renderedTemplate;
 				}
 				if(typeof(content) === "function"){ //register events on node
-					content += val + "(this);"
+					content += val + "(window.event);"
 				}
 				tempStr = tempStr.slice(0,paramIndex+offset) + content + tempStr.slice(paramIndex+offset,tempStr.length);
 		

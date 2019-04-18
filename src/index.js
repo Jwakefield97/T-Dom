@@ -12,7 +12,7 @@ let numElements = 0;
 				title: "title"+i,
 				text: "this is some text for card: "+i,
 				handler: (e) => {
-					console.log(e);
+					console.log(e.target);
 				},
 				cardExtra: {
 					type: "template",
@@ -23,9 +23,11 @@ let numElements = 0;
 				
 			});
 		}
-
+	
 		
 		$("#mainContent").template("cardTemplate",models).append();
+
+
 		numElements += 10;
 
 
